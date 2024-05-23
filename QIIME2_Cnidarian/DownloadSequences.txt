@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# Set the working directory to the current directory where the script is located
+WORKDIR=$(pwd)
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check if prefetch and fasterq-dump are installed
+if ! command_exists prefetch || ! command_exists fasterq-dump; then
+    echo "Error: prefetch and fasterq-dump must be installed and accessible in the PATH."
+    exit 1
+fi
+
+# List of accession numbers
+sra_ids=(
+    "SRR22491011"
+    "SRR22491012"
+    "SRR22491013"
+    "SRR22491014"
+    "SRR22491015"
+    "SRR22491016"
+    "SRR22491017"
+    "SRR22491018"
+    "SRR22491019"
+    "SRR22491020"
+    "SRR22491021"
+    "SRR22491022"
+    "SRR22491023"
+    "SRR22491024"
+    "SRR22491025"
+    "SRR22491026"
+    "SRR22491027"
+    "SRR22491028"
+    "SRR22491029"
+    "SRR22491030"
+    "SRR22491031"
+    "SRR22491032"
+    "SRR22491033"
+    "SRR22491034"
+    "SRR22491035"
+    "SRR22491036"
+    "SRR22491037"
+    "SRR22491038"
+    "SRR22491039"
+    "SRR22491040"
+    "SRR22491041"
+    "SRR22491042"
+    "SRR22491043"
+    "SRR22491044"
+    "SRR22491045"
+    "SRR22491046"
+    "SRR22491047"
+    "SRR22491048"
+    "SRR22491049"
+    "SRR22491050"
+    "SRR22491051"
+    "SRR22491052"
+    "SRR22491053"
+    "SRR22491054"
+    "SRR22491055"
+    "SRR22491056"
+    "SRR22491057"
+    "SRR22491058"
+)
+
+# Loop through each accession number and process
+for sra_id in "${sra_ids[@]}"; do
+    echo "Downloading SRA file for accession $sra_id"
+    prefetch $sra_id --output-directory $WORKDIR
+
+    # Set the path to the downloaded SRA file
+    sra_file="$WORKDIR/$sra_id/$sra_id.sra"
+
+    # Check if the SRA file was successfully downloaded
+    if [ -f "$sra_file" ]; then
+        echo "Found SRA file: $sra_file"
+
+        # Run fasterq-dump on the downloaded SRA file
+        fasterq-dump "$sra_file" --split-files --outdir $WORKDIR
+
+        # Compress the resulting fastq files and list them
+        base_name=$(basename "$sra_file" .sra)
+        for fastq_file in ${base_name}_*.fastq; do
+            if [ -f "$fastq_file" ]; then
+                echo "Compressing fastq file: $fastq_file"
+                gzip "$fastq_file"
+            else
+                echo "No fastq files found for $base_name"
+            fi
+        done
+
+        # Remove the directory containing the downloaded SRA file
+        echo "Removing directory $WORKDIR/$sra_id"
+        rm -rf "$WORKDIR/$sra_id"
+    else
+        echo "Failed to download SRA file for $sra_id"
+    fi
+done
+
+echo "All processing complete."
