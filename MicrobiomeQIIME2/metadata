@@ -1,2 +1,0 @@
-This repository contains the code and outputs of the QIIME2 microbiome analysis pipeline. Like DADA2 in R, QIIME2 cleans reads, assigns taxonomies, and creates
-visualizations comparing the microbiomes of different groups. However, unlike DADA2, QIIME2 is run in the command-line.
