@@ -1,0 +1,11 @@
+This repository contains the code and results for two different genome assembly methods, Spades and Abyss. 
+
+Abyss produces  more files than SPAdes, 
+including quality assessment files and histograms. The Abyss assembly produced a genome that is closer to the length of the reference genome (4951383 bp) 
+than the SPAdes assembly. The Abyss assembly also seemed more contiguous than the SPAdes assembly given the higher N50 and lower number of contigs in
+the Abyss output. The GC content for Abyss assembly was also slightly closer to that of the reference (52.24).
+
+These genomes were also annotated using two methods, RAST and Prokka. Unlike Prokka, RAST contextualizes annotated genes by placing them in their
+respective biological networks.
+
+
