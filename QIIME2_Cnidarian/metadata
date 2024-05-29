@@ -1,0 +1,4 @@
+This repository contains the code I used to analyze microbiome data from the cnidarian, Exaiptasia diaphana. The NCBI accession numbers of the reads I 
+used are included in the code.
+
+This analysis was done using the QIIME2 pipeline.
