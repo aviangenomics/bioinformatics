@@ -1,0 +1,133 @@
+---
+title: "Ordination"
+author: "Jair"
+date: "2024-04-29"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+library(vegan)
+```
+
+
+
+
+```{r}
+food_pref <- read.csv("FOOD_past_raw.csv", row.names = 1)
+```
+```{r}
+# Check for any NA or negative values
+sum(is.na(food_pref))
+sum(food_pref < 0)
+
+# Clean or replace problematic values if any
+food_pref[is.na(food_pref)] <- 0
+food_pref[food_pref < 0] <- 0
+```
+
+```{r}
+# Perform Detrended Correspondence Analysis
+dca_results <- decorana(food_pref)  # Make sure food_pref is correctly formatted for this analysis
+```
+
+```{r}
+# Plotting the DCA results using rproj coordinates
+plot(dca_results$rproj[, 1], dca_results$rproj[, 2], type = "n")  # Initialize the plot without any points
+points(dca_results$rproj[, 1], dca_results$rproj[, 2], pch = 19, col = 2)  # Add points in red
+
+# Add labels using row names from the original data matrix
+text(dca_results$rproj[, 1], dca_results$rproj[, 2], labels = rownames(food_pref), pos = 3, cex = 0.8)
+
+# Adding titles and labels to axes
+title("Detrended Correspondence Analysis (DCA)")
+```
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(ggrepel)
+
+# Assuming dca_results$rproj has the correct row names (country names)
+# Convert dca_results$rproj to a data frame
+dca_data <- as.data.frame(dca_results$rproj)
+
+# Add country names as a column from the row names
+dca_data$Country <- rownames(food_pref)
+
+
+# Use ggplot2 along with ggrepel to plot the results
+ggplot(dca_data, aes(x = DCA1, y = DCA2, label = Country)) +
+  geom_point(color = "red") +
+  geom_text_repel() +
+  labs(title = "Detrended Correspondence Analysis (DCA)", x = "DCA Axis 1", y = "DCA Axis 2") +
+  theme_minimal()
+```
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(ggrepel)
+
+# Assuming dca_results$rproj has the correct row names (country names)
+# Convert dca_results$rproj to a data frame
+dca_data <- as.data.frame(dca_results$rproj)
+
+# Add country names as a column from the row names
+dca_data$Country <- rownames(food_pref)  # Use rownames from dca_data itself if it's correct
+
+# Use ggplot2 along with ggrepel to plot the results
+ggplot(dca_data, aes(x = DCA1, y = DCA2, label = Country)) +
+  geom_point(color = "red") +
+  geom_text_repel(
+    size = 3,  # Adjust text size (default in points)
+    box.padding = unit(0.35, "lines"),  # Adjust the padding around the text
+    point.padding = unit(0.5, "lines"),  # Adjust the padding around the points to avoid overlap with text
+    max.overlaps = 10  # Maximum allowed text overlaps
+  ) +
+  labs(title = "Detrended Correspondence Analysis (DCA)", x = "DCA Axis 1", y = "DCA Axis 2") +
+  theme_minimal()
+
+```
+
+```{r}
+new_data <- read.csv("FOOD_past_raw_CCA.dat.csv")
+```
+```{r}
+# Check for any NA or negative values
+sum(is.na(new_data))
+sum(new_data < 0)
+
+# Clean or replace problematic values if any
+new_data[is.na(new_data)] <- 0
+new_data[new_data < 0] <- 0
+```
+
+```{r}
+# Setting row names to countries from the first column
+rownames(new_data) <- new_data[, 1]
+
+# All other columns are treated as species data
+species_data <- new_data[, -1]  # Removes the first column which contains the site names
+```
+
+```{r}
+# Assuming columns 2 to 7 are environmental variables
+env_data <- new_data[, 2:7]
+species_data <- new_data[, 8:ncol(new_data)]
+
+# Perform CCA
+cca_result <- cca(species_data ~ ., data = env_data)
+```
+
+```{r}
+summary(cca_result)
+plot(cca_result)
+```
+```{r}
+# Increase plot dimensions in RStudio or your R GUI
+# For a file output, you can specify dimensions in the file output command
+png("cca_plot.png", width = 1200, height = 800)
+plot(cca_result)
+dev.off()  # Close the device after plotting
+```

@@ -1,0 +1,57 @@
+---
+title: "Bootstrap Assigment"
+author: "Jair"
+date: "2024-03-27"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+dataset1 <- c(120, 107, 110, 116, 114, 111, 113, 117, 114, 112)
+dataset2 <- c(110, 111, 107, 108, 110, 105, 107, 106, 111, 111)
+```
+
+```{r}
+pseudo_means1 <- numeric(20)
+pseudo_means2 <- numeric(20)
+pseudo_differences <- numeric(20)
+```
+
+```{r}
+for(i in 1:20) {
+  sample1 <- sample(dataset1, 10, replace=TRUE)
+  sample2 <- sample(dataset2, 10, replace=TRUE)
+  
+  pseudo_means1[i] <- mean(sample1)
+  pseudo_means2[i] <- mean(sample2)
+
+  pseudo_differences[i] <- pseudo_means1[i] - pseudo_means2[i]
+}
+
+grand_pseudo_difference <- sum(pseudo_differences) / 20
+std_deviation <- sd(pseudo_differences)
+```
+
+```{r}
+cat("Pseudo-means for Dataset 1:\n")
+print(pseudo_means1)
+cat("\nPseudo-means for Dataset 2:\n")
+print(pseudo_means2)
+cat("\nPseudo-differences:\n")
+print(pseudo_differences)
+```
+
+```{r}
+cat("\nGrand Pseudo-Difference:", grand_pseudo_difference, "\n")
+cat("Standard Deviation of Pseudo-Differences:", std_deviation, "\n")
+```
+
+```{r}
+BCA <- 4.8 - grand_pseudo_difference
+print(BCA)
+```

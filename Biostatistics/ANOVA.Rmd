@@ -1,0 +1,155 @@
+---
+title: "ANOVA_HW"
+author: "Jair"
+date: "2024-02-17"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#create a variable for the data sheet
+```{r}
+anova <- read.csv("ANOVA_Data.csv")
+```
+
+#load the tidyverse library
+```{r}
+library(tidyverse)
+```
+
+#Convert wide to long format
+```{r}
+Ox_long <- pivot_longer(anova, 
+                        cols = c(M1_Ox, M2_Ox, M3_Ox), 
+                        names_to = "Technology", 
+                        values_to = "Score")
+```
+
+#Run a one-way ANOVA
+```{r}
+anova_Ox <- aov(Score ~ Technology, data = Ox_long)
+summary(anova_Ox)
+```
+
+#Calculate R squared
+```{r}
+R2_Ox = 0.00021/(0.00021+0.12490)
+print(R2_Ox)
+```
+
+#Run a post Hoc test
+```{r}
+tukey_Ox <- TukeyHSD(anova_Ox)
+print(tukey_Ox)
+```
+
+
+#Convert wide to long format
+```{r}
+deer_long <- pivot_longer(anova, 
+                          cols = c(Feb_Deer, May_Deer, Aug_Deer, Nov_Deer), 
+                          names_to = "Month", 
+                          values_to = "Food")
+```
+
+#Run a one-way ANOVA
+```{r}
+anova_deer <- aov(Food ~ Month, data = deer_long)
+summary(anova_deer)
+```
+
+#Calculate R squared
+```{r}
+R2_deer = 2.3065/(2.3065+0.6267)
+print(R2_deer)
+```
+
+#Run a post Hoc test
+```{r}
+tukey_deer <- TukeyHSD(anova_deer)
+print(tukey_deer)
+```
+
+#Convert wide to long format
+```{r}
+roach_long <- pivot_longer(anova, 
+                          cols = c(Roach_S1, Roach_S2, Roach_S3, Roach_S4, Roach_S5), 
+                          names_to = "Site", 
+                          values_to = "Length")
+```
+
+#Run a one-way ANOVA
+```{r}
+anova_roach <- aov(Length ~ Site, data = roach_long)
+summary(anova_roach)
+```
+
+#Calculate R squared
+```{r}
+R2_roach = 101.4/(101.4+260.4)
+print(R2_roach)
+```
+
+#Run a post Hoc test
+```{r}
+tukey_roach <- TukeyHSD(anova_roach)
+print(tukey_roach)
+```
+
+
+#Convert wide to long format
+```{r}
+caff_long <- pivot_longer(anova, 
+                          cols = c(Caff_50ppm, Caff_100ppm, Caff_150ppm, Caff_200ppm), 
+                          names_to = "Concentration", 
+                          values_to = "Difference")
+```
+
+#Run a one-way ANOVA
+```{r}
+anova_caff <- aov(Difference ~ Concentration, data = caff_long)
+summary(anova_caff)
+```
+
+#Calculate R squared
+```{r}
+R2_caff = 0.9835/(0.9835+1.3891)
+print(R2_caff)
+```
+
+#Run a post Hoc test
+```{r}
+tukey_caff <- TukeyHSD(anova_caff)
+print(tukey_caff)
+```
+
+
+#Convert wide to long format
+```{r}
+tech_long <- pivot_longer(anova, 
+                          cols = c(Tech1, Tech2, Tech3, Tech4), 
+                          names_to = "Technician", 
+                          values_to = "Phosphorus")
+```
+
+#Run a one-way ANOVA
+```{r}
+anova_tech <- aov(Phosphorus ~ Technician, data = tech_long)
+summary(anova_tech)
+```
+
+#Calculate R squared
+```{r}
+R2_tech = 9/(9+20)
+print(R2_tech)
+```
+
+#Run a post Hoc test
+```{r}
+tukey_tech <- TukeyHSD(anova_tech)
+print(tukey_tech)
+```

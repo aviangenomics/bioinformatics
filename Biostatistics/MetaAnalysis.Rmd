@@ -1,0 +1,103 @@
+---
+title: "Meta Analysis"
+author: "Jair"
+date: "2024-03-18"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+data <- data.frame(
+  Species = c('Bouteloua sp.', 'Aristida sp.', 'Mirabilis sp.', 
+              'Pterygophora sp.', 'Macrocystis sp.'),
+  NC = c(7, 7, 6, 20, 20),
+  NE = c(7, 7, 6, 20, 20),
+  XC = c(78.14, 18.86, -1.8, 0, 0),
+  XE = c(79.71, 26, -2.1, 14.1, 7.1),
+  sC = c(40.65, 9.17, 0.49, 7.603, 3.13),
+  sE = c(40.65, 9.17, 0.49, 7.603, 3.13)
+)
+```
+
+```{r}
+pooled_sd <- function(s1, s2, n1, n2) {
+  sqrt(((n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2))
+}
+```
+
+```{r}
+hedges_d <- function(d, n1, n2, sd) {
+  g <- d / sd
+  J <- 1 - (3 / (4 * (n1 + n2) - 9))
+  g * J
+}
+```
+
+```{r}
+var_hedges_d <- function(n1, n2, g) {
+  (n1 + n2) / (n1 * n2) + (g^2) / (2 * (n1 + n2))
+}
+```
+
+```{r}
+data$pooled_SD <- with(data, pooled_sd(sC, sE, NC, NE))
+data$mean_diff <- with(data, XE - XC)
+data$hedges_d <- with(data, hedges_d(mean_diff, NC, NE, pooled_SD))
+data$var_hedges_d <- with(data, var_hedges_d(NC, NE, hedges_d))
+```
+
+```{r}
+print(data[, c('Species', 'hedges_d', 'pooled_SD', 'var_hedges_d')])
+```
+
+```{r}
+data$weight <- 1 / data$var_hedges_d
+```
+
+```{r}
+cumulative_effect_size <- sum(data$weight * data$hedges_d) / sum(data$weight)
+```
+
+```{r}
+cumulative_effect_se <- sqrt(1 / sum(data$weight))
+```
+
+```{r}
+z_value <- 2.776
+```
+
+```{r}
+ci_lower <- cumulative_effect_size - z_value * cumulative_effect_se
+ci_upper <- cumulative_effect_size + z_value * cumulative_effect_se
+```
+
+```{r}
+cumulative_table <- data.frame(
+  Cumulative_Effect_Size = cumulative_effect_size,
+  SE = cumulative_effect_se,
+  CI_Lower = ci_lower,
+  CI_Upper = ci_upper
+)
+```
+
+```{r}
+print(cumulative_table)
+```
+```{r}
+data$weights <- 1 / data$var_hedges_d
+```
+
+```{r}
+E_fixed <- 1.19936
+```
+
+```{r}
+QT <- sum(data$weights * (data$hedges_d - E_fixed)^2)
+```
+
+```{r}
+print(QT)
+```

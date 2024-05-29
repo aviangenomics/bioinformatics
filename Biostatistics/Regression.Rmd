@@ -1,0 +1,207 @@
+---
+title: "Regression"
+author: "Jair"
+date: "2024-05-01"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+library(ggpubr)
+library(dplyr)
+```
+#Load data into the variable named "regression"
+```{r}
+regression <- read.csv("biol5500_regression_HW_data.csv")
+```
+
+#Extract data from each column
+```{r}
+site <- regression$site
+old_m <- regression$old_m
+new_m <- regression$new_m
+farm <- regression$farm
+density <- regression$density
+yield <- regression$yield
+days_at_115 <- regression$days_at_115
+photo_rate <- regression$photo_rate
+spp <- regression$spp
+height_m <- regression$height_m
+mistlet <- regression$mistlet
+nests <- regression$nests
+```
+
+#Calculate each part of the equation for the regression line
+```{r}
+model <- lm(new_m ~ old_m, data = regression)
+coefficients <- coef(model)
+m <- coefficients["old_m"]  # Slope
+b <- coefficients["(Intercept)"]  # Intercept
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R^2 = ", round(r_squared, 2))
+```
+
+#Make scatterplot
+```{r}
+library(ggpubr)
+p <- ggscatter(regression, x = "old_m", y = "new_m",
+               add = "reg.line", 
+               conf.int = FALSE,
+               cor.coef = TRUE, 
+               cor.method = "pearson",
+               xlab = "Old Method Values (mg/kg)", 
+               ylab = "New Method Values",
+               main = "Accuracy of New Method for Measuring Nitrogen Content (mg/kg)") +
+      annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p
+```
+#Calculate each part of the equation for the regression line
+```{r}
+model <- lm(yield ~ density, data = regression)
+coefficients <- coef(model)
+m <- coefficients["density"] 
+b <- coefficients["(Intercept)"]
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R^2 = ", round(r_squared, 2))
+```
+
+#Make scatterplot
+```{r}
+library(ggpubr)
+p <- ggscatter(regression, x = "density", y = "yield",
+               add = "reg.line", 
+               conf.int = FALSE,
+               cor.coef = TRUE, 
+               cor.method = "pearson",
+               xlab = "Density (# seeds/m2)", 
+               ylab = "Yield (bushels/hectare)",
+               main = "Relationship Between Density and Yield of Wheat") +
+      annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p
+```
+
+#Calculate each part of the equation for the regression line
+```{r}
+model <- lm(photo_rate ~ days_at_115, data = regression)
+coefficients <- coef(model)
+m <- coefficients["days_at_115"]  
+b <- coefficients["(Intercept)"] 
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R^2 = ", round(r_squared, 2))
+```
+
+#Make scatterplot
+```{r}
+library(ggpubr)
+p <- ggscatter(regression, x = "days_at_115", y = "photo_rate",
+               add = "reg.line", 
+               conf.int = FALSE,
+               cor.coef = TRUE, 
+               cor.method = "pearson",
+               xlab = "Days at 115 Degrees F", 
+               ylab = "Photosynthesis Rate (uM CO2/g/s)",
+               main = "Relationship Between Hot Days and Photosynthesis Rate") +
+      annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p
+```
+
+#Calculate each part of the equation for the regression line
+```{r}
+model_height <- lm(mistlet ~ height_m, data = regression)
+coefficients_height <- coef(model_height)
+m_height <- coefficients_height["height_m"]  # Slope
+b_height <- coefficients_height["(Intercept)"]  # Intercept
+r_squared_height <- summary(model_height)$r.squared
+equation_height <- paste("y = ", round(m_height, 2), "x +", round(b_height, 2), "; R^2 = ", round(r_squared_height, 2))
+```
+
+#Make scatterplot
+```{r}
+p_height <- ggscatter(regression, x = "height_m", y = "mistlet",
+                      add = "reg.line",
+                      conf.int = FALSE,
+                      cor.coef = TRUE, cor.method = "pearson",
+                      xlab = "Tree Height (m)", ylab = "Mistletoe Count",
+                      main = "Relationship Between Tree Height and Mistletoe Count") +
+             annotate("text", x = Inf, y = Inf, label = equation_height, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+             theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p_height
+```
+
+#Calculate each part of the equation for the regression line
+```{r}
+model_nests <- lm(mistlet ~ nests, data = regression)
+coefficients_nests <- coef(model_nests)
+m_nests <- coefficients_nests["nests"]  # Slope
+b_nests <- coefficients_nests["(Intercept)"]  # Intercept
+r_squared_nests <- summary(model_nests)$r.squared
+equation_nests <- paste("y = ", round(m_nests, 2), "x +", round(b_nests, 2), "; R^2 = ", round(r_squared_nests, 2))
+```
+
+#Make scatterplot
+```{r}
+p_nests <- ggscatter(regression, x = "nests", y = "mistlet",
+                     add = "reg.line",
+                     conf.int = FALSE,
+                     cor.coef = TRUE, cor.method = "pearson",
+                     xlab = "Nest Count", ylab = "Mistletoe Count",
+                     main = "Relationship Between Nest Count and Mistletoe Count") +
+            annotate("text", x = Inf, y = Inf, label = equation_nests, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+            theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p_nests
+```
+
+#Regression is inappropriate for categorical data like species. This code makes a bar chart instead.
+```{r}
+
+data <- data.frame(
+  Species = c("Birch", "Cottonwood", "Oak"),
+  Average_Mistletoes = c(0.6, 1, 1.1) #Averages calculated in Excel
+)
+
+
+p <- ggplot(data, aes(x = Species, y = Average_Mistletoes, fill = Species)) +
+  geom_bar(stat = "identity", color = "black") +
+  labs(x = "Species", y = "Average Mistletoes", title = "Average Mistletoes per Species") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Pastel1")  
+
+print(p)
+```
+```{r}
+anova_result <- aov(mistlet ~ spp, data = data)
+summary(anova_result)
+```
+```{r}
+# Performing Tukey HSD test
+tukey_result <- TukeyHSD(anova_result)
+print(tukey_result)
+```
+
+```{r}
+cadmium <- c(0.90, 1.55, 1.30, 1.00, 1.55, 1.80, 1.50, 1.05, 1.70, 1.20, 1.45)
+lead <- c(33, 50, 46, 33, 53, 57, 44, 31, 60, 40, 50)
+data <- data.frame(cadmium, lead)
+
+model <- lm(lead ~ cadmium, data = data)
+coefficients <- coef(model)
+m <- coefficients["cadmium"]  # Slope
+b <- coefficients["(Intercept)"]  # Intercept
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R^2 = ", round(r_squared, 2))
+
+p <- ggscatter(data, x = "cadmium", y = "lead",
+               add = "reg.line",
+               conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Cadmium", ylab = "Lead",
+               main = "Relationship Between Cadmium and Lead Levels") +
+      annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 5, color = "black") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+print(p)
+```

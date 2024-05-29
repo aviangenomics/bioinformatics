@@ -1,0 +1,200 @@
+---
+title: "Correlation_Regression"
+author: "Jair"
+date: "2024-02-09"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+snails <- read.csv("snails.csv")
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+size <- snails$Size_mm
+ext_b <- snails$Ext_barn
+int_b <- snails$Int_barn
+```
+
+```{r}
+data <- data.frame(Size_mm = size, Int_barn = int_b)
+model <- lm(Int_barn ~ Size_mm, data = data)
+r_2<- summary(model)$r.squared
+```
+
+```{r}
+cor.test(snails$Size_mm, snails$Int_barn, method = "pearson")
+library("ggpubr")
+p <- ggscatter(snails, x = "Size_mm", y = "Int_barn",
+               add = "reg.line", conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Shell diameter (mm)", ylab = "Int. Barnacles (#)",
+               main = "Interior Barnacles in Snail Shells")
+
+# Add theme to center and bold the title
+p + theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+
+```{r}
+model <- lm(Int_barn ~ Size_mm, data = snails)
+coefficients <- coef(model)
+m <- coefficients["Size_mm"]  # Slope
+b <- coefficients["(Intercept)"]  # Intercept
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R² = ", round(r_squared, 2))
+```
+
+```{r}
+library("ggpubr")
+
+p <- ggscatter(snails, x = "Size_mm", y = "Int_barn",
+               add = "reg.line", conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Shell diameter (mm)", ylab = "Int. Barnacles (#)",
+               main = "Barnacles in Snail Shells") +
+  annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+p
+
+```
+
+```{r}
+cor.test(snails$Size_mm, snails$Int_barn, method = "pearson")
+library("ggpubr")
+p <- ggscatter(snails, x = "Size_mm", y = "Int_barn",
+               add = "reg.line", conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Shell diameter (mm)", ylab = "Int. Barnacles (#)",
+               main = "Interior Barnacles in Snail Shells")
+
+# Add theme to center and bold the title
+p + theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+
+```{r}
+model <- lm(Ext_barn ~ Size_mm, data = snails)
+coefficients <- coef(model)
+m <- coefficients["Size_mm"]  # Slope
+b <- coefficients["(Intercept)"]  # Intercept
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R² = ", round(r_squared, 2))
+```
+
+```{r}
+library("ggpubr")
+
+p <- ggscatter(snails, x = "Size_mm", y = "Ext_barn",
+               add = "reg.line", conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Shell diameter (mm)", ylab = "Ext. Barnacles (#)",
+               main = "External Barnacles in Snail Shells") +
+  annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+p
+
+```
+
+```{r}
+model <- lm(Ext_barn ~ Int_barn, data = snails)
+coefficients <- coef(model)
+m <- coefficients["Int_barn"]  # Slope
+b <- coefficients["(Intercept)"]  # Intercept
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R² = ", round(r_squared, 2))
+```
+
+```{r}
+library("ggpubr")
+
+p <- ggscatter(snails, x = "Int_barn", y = "Ext_barn",
+               add = "reg.line", conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Int. Barnacles (#)", ylab = "Ext. Barnacles (#)",
+               main = "Internal and External Barnacles in Snail Shells") +
+  annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+p
+
+```
+
+```{r}
+pollution <- read.csv("pollution.csv")
+```
+
+
+```{r}
+model <- lm(SO2_ppm ~ MANUF_jobsper1000, data = pollution)
+coefficients <- coef(model)
+m <- coefficients["MANUF_jobsper1000"]  # Slope
+b <- coefficients["(Intercept)"]  # Intercept
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R² = ", round(r_squared, 2))
+```
+
+```{r}
+library("ggpubr")
+p <- ggscatter(pollution, x = "MANUF_jobsper1000", y = "SO2_ppm",
+               add = "reg.line", conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Manufacturing Jobs (per 1000)", ylab = "SO2 (ppm)",
+               main = "Manufacturing Jobs and SO2 Pollution") +
+  annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p
+```
+
+```{r}
+model <- lm(PRECIP_days ~ PRECIP_inchs, data = pollution)
+coefficients <- coef(model)
+m <- coefficients["PRECIP_inchs"]  # Slope
+b <- coefficients["(Intercept)"]  # Intercept
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R² = ", round(r_squared, 2))
+```
+
+```{r}
+library("ggpubr")
+p <- ggscatter(pollution, x = "PRECIP_days", y = "PRECIP_inchs",
+               add = "reg.line", conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Precipitation Days", ylab = "Precipitation (inches)",
+               main = "Amount of Precipitation and Precipitation Days") +
+  annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p
+```
+```{r}
+model <- lm(PRECIP_inchs ~ PRECIP_days, data = pollution)
+coefficients <- coef(model)
+m <- coefficients["PRECIP_days"]  # Slope
+b <- coefficients["(Intercept)"]  # Intercept
+r_squared <- summary(model)$r.squared
+equation <- paste("y = ", round(m, 2), "x +", round(b, 2), "; R² = ", round(r_squared, 2))
+```
+
+```{r}
+library("ggpubr")
+p <- ggscatter(pollution, x = "PRECIP_inchs", y = "PRECIP_days",
+               add = "reg.line", conf.int = FALSE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Precipitation (inches)", ylab = "Precipitation (days)",
+               main = "Amount of Precipitation Days and Precipitation") +
+  annotate("text", x = Inf, y = Inf, label = equation, hjust = 1.1, vjust = 1.1, size = 4, color = "black") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p
+```
