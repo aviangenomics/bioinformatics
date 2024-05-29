@@ -1,0 +1,2 @@
+This repository contains the slides I presented at the final Google CS Research event. The data used are available here: 
+https://snap.stanford.edu/biodata/datasets/10012/10012-DG-AssocMiner.html
