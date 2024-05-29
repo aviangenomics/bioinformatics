@@ -1,0 +1,50 @@
+import matplotlib.pyplot as plt
+from matplotlib.patches import FancyArrowPatch
+
+def plot_corrected_gene_models_v3(genes, figsize=(10, 3), title=None)
+    fig, ax = plt.subplots(figsize=figsize)
+    
+    gene_lengths = [end - start for _, start, end, _ in genes]
+    total_length = sum(gene_lengths)
+    relative_lengths = [length / total_length for length in gene_lengths]
+    
+    spacing = 0.1
+    current_pos = spacing  
+
+    for i, (name, _, _, strand) in enumerate(genes):
+        arrow_length = relative_lengths[i] * (figsize[0] - (len(genes) + 1) * spacing)
+        
+        if strand == +1:  # Forward strand
+            dx = arrow_length
+            arrow_start = current_pos
+        else:  # Reverse strand
+            dx = -arrow_length
+            arrow_start = current_pos + arrow_length
+        
+        arrow = FancyArrowPatch((arrow_start, 0), (arrow_start + dx, 0),
+                                arrowstyle='-|>',  color = "blue" if name == "TLR4" else "red",
+                                mutation_scale=20, linewidth=5)
+        ax.add_patch(arrow)
+        
+        # Place the gene name label
+        ax.text(current_pos + arrow_length / 2, -0.15, name, ha='center', fontsize=9, wrap=True)
+        
+        current_pos += arrow_length + spacing  # Update position for the next gene
+
+    ax.set_xlim(0, current_pos)  # Adjust the x-axis limit to fit all arrows and labels
+    ax.set_ylim(-1, 1)
+    ax.axis('off')  
+    
+    if title: 
+        plt.title(title, fontsize=14)
+
+    plt.tight_layout()
+    plt.show()
+
+plot_corrected_gene_models_v3(
+    genes=[
+        ("LOC132337089", 5325750, 5332526, +1),
+        ("BRINP1", 4930412, 4956731, +1),
+        ("TLR4", 4459648, 4468615, -1),
+        ("TRIM32", 4145995, 4153344, -1),
+    ],
