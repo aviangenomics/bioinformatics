@@ -1,0 +1,244 @@
+\documentclass{resume}
+\usepackage[left=0.6in,top=0.6in,right=0.6in,bottom=0.6in]{geometry}
+\usepackage[svgnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,          % hyperlinks
+  allcolors=DarkRed,%
+  pdfborderstyle={/S/U/W 1} % border style will be underline of width 1pt
+}
+
+\usepackage{vwcol}
+\usepackage{natbib}
+\usepackage{cfr-lm}         % make old style numbers default
+\usepackage{graphicx}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TITLE SECTION
+\begin{center}
+    \name{Jair Torres}
+    \contact
+        {209$\cdot$535$\cdot$0552}
+        {\href{mailto://jtorres58@csustan.edu}{jtorres58@csustan.edu}}
+        {\href{https://aviangenomics.github.io}{aviangenomics.github.io}}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TECHNICAL SKILLS
+\section{Technical Skills}
+\vspace{-5mm} % Adjust this value to reduce space above the table
+\begin{tabular}{l l l l l}
+    \textbf{} & \textbf{} & \textbf{} & \textbf{} & \textbf{} \\
+    Python & R & Biostatistics & Data Management & Graph Theory \\ 
+    Genomics & Bioinformatics & Microbiome Analysis & Long read sequencing & Data Visualization\\
+     RNA--Seq & Technical Writing & Science Communication & Data Visualization & DNA Extraction\\
+\end{tabular}
+\vspace{-1mm} % Adjust this value to reduce space below the table
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EDUCATION 
+\section{Education} 
+\begin{content}
+    {\bf California State University, Stanislaus} \hfill {\bf August 2023 -- Present} \\ 
+    {M.Sc. Biological Sciences} \hfill 
+    {\em GPA: \textpl{4.0/4.0} \quad Suma cum laude} 
+
+    {\bf California State University, Stanislaus} \hfill {\bf August 2019 -- May 2023} \\ 
+    {B.Sc. Biological Sciences} \hfill 
+    {\em GPA: \textpl{4.0/4.0} \quad Suma cum laude}
+    
+    % \vspace{-.25\baselineskip}
+    % {\em Honours:} If you'd rather list your awards here than in a separate section later, simply write the awards here and comment out that section (and vice versa).
+\sectionlineskip
+\end{content}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESEARCH EXPERIENCE
+\section{Research Experience}
+\begin{content}
+
+    \begin{position}{Comparative Immunogenomics of Songbirds}{August 2023 -- present}{Master's Student}{Dr.~Tricia Van Laar}{CSU Stanislaus}
+    \item Used long-read sequencing to assemble the genomes of three bird species for comparative genomic analyses. 
+    \item Characterized and compared the immunome, including the major histocompatibility complex (MHC) region.
+    \item Used Python to create a syntenic gene visualizer.
+    \end{position}
+    \vspace{-.5\baselineskip}
+    
+    \begin{position}{Network Analysis of Disease-Gene Associations}{November 2022 -- May 2023}{Research Intern}{Dr.~Ayat Hatem}{CSU Stanislaus}
+    \item Applied graph theory to disease-gene association networks to identify genes underlying disease comorbidity.
+    \item Identified the LRP2 as a gene that may underlie the comorbidity between metabolic bone disorder and hypertension.
+    \end{position}
+   
+
+\sectionlineskip
+\end{content}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Presentations 
+\section{Presentations} 
+\begin{content}
+
+    \begin{position}{Comparative Genomics of Songbirds}{April 2024}{CSU State Grad Slam}{}{}
+    \item Finalist in the statewide 3-minute thesis competition.
+    \end{position}
+     
+     \begin{position}{Comparative Genomic Analysis of the Finch TLR4 Gene}{April 2024}{RSCA Celebration}{}{}
+        \item Presented a poster comparing the TLR4 gene between the House Finch and American Goldfinch at the CSU Stanislaus Research, Scholarship, and Creative Activity (RSCA) Celebration.
+    \end{position}
+
+    \begin{position}{Comparative Genomics of Songbirds}{March 2024}{Biology Colloquium Lightning Talk}{}{}
+        \item Presented my research on bioinformatics and avian genomics.
+    \end{position}
+
+     \begin{position}{Applications of Graph Theory to Biological Networks}{May 2023}{Google exploreCSR}{}{}
+        \item Presented my research on disease-gene association networks at the final Google exploreCSR workshop involving CSU Stanislaus, UC Merced, and Merced Junior College.
+    \end{position}
+    
+    \vspace{-.5\baselineskip}
+
+\sectionlineskip
+\end{content}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WORK EXPERIENCE
+\section{Work Experience}
+\begin{content}
+
+\begin{position}{MEL Data Migration Assistant}{Spring 2024 -- Present}{Soccer Without Borders}{}{}
+        \item Automated data transformations of student data from hubs in Nicaragua, Uganda, and the United States using Python.
+        \item Helped facilitate data migration between data management software.
+\end{position}
+
+    \begin{position}{Biology Lab Instructor}{Fall 2023 -- Present}{CSU Stanislaus}{}{}
+        \item Teach two sections (48 students) of BIOL 1020: World of Biology Lab.
+        \item Redesigned various activities to incorporate active learning techniques.
+        \item Teach students how to use Microsoft Excel for data analysis and presentation.
+    \end{position}
+ 
+
+     \begin{position}{Peer Mentor Intern}{Fall 2023 -- Present}{CSU Stanislaus}{}{}
+        \item Provide support for instructional student assistants (ISAs). 
+        \item Lead trainings on effective tutoring and cultural competency to a cohort of 55 ISAs.
+        \item Manage and analyze department and student data using Microsoft Excel.
+    \end{position}
+
+   \begin{position}{Supplemental Instruction Leader}{Fall 2019 -- Present}{CSU Stanislaus}{}{}
+    \item Lead interactive group study sessions for groups of 2 – 24 students enrolled in the following courses:\\  % Added a line break here
+
+\vspace{-7mm} % Adjust this value to reduce space above the table
+    \noindent\begin{tabular}{l l}  % 'noindent' to align the table with the document margins
+        \textbf{} & \textbf{} \\
+        BIOL 1010: Principles of Biology & Fall 2020–Spring 2021 \\
+        BIOL 3310: Cellular and Molecular Biology & Fall 2023–Spring 2024 \\
+        CHEM 1100: General Chemistry I & Fall 2022–Spring 2023 \\
+        CHEM 1110: General Chemistry II & Fall 2021–Spring 2022 \\
+        CHEM 3010: Organic Chemistry I & Spring 2024–Present \\
+    \end{tabular}
+\end{position}
+
+
+    \begin{position}{Peer Tutor}{Fall 2020 -- Spring 2023}{CSU Stanislaus}{}{}
+        \item Provided instructional support to groups of 1 – 3 students enrolled in the following courses:\\  % Added a line break here
+        
+\vspace{-7mm} % Adjust this value to reduce space above the table
+    \noindent\begin{tabular}{l l}  % 'noindent' to align the table with the document margins
+        \textbf{} & \textbf{} \\
+            BIOL 1010: Principles of Biology &  BIOL 1050: General Biology I \\
+            BIOL 1150: General Biology I & BIOL 3310: Cellular and Molecular Biology \\
+            CHEM 1100: General Chemistry I & CHEM 1110: General Chemistry II \\
+            CHEM 3010: Organic Chemistry I & MATH 1070: College Algebra\\
+            MATH 1080: Trigonometry & MATH 1600: Statistics\\
+             
+    \end{tabular}
+    \end{position}
+
+\sectionlineskip
+\end{content}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROJECTS
+\section{Projects \textbf{\em\&} Extracurriculars} 
+\begin{content}
+    
+    \begin{position}{SACNAS}{May 2024 -- present}{Secretary}{}{}
+        \item Helped restart the SACNAS chapter at CSU Stanislaus. 
+    \end{position}
+    
+    \begin{position}{Science in Our Community}{March. 2023 -- Present}{Volunteer}{}{}
+    \item Helped organize and execute STEM community outreach events. Events I have lead have an asterisk (*):
+
+    \begin{tabular}{l}
+         Atomic Structure Model Building* \\ 
+         The Secret Life of Cells Microscopy \\
+         The Chemistry of Health \\ 
+         Darwin Day Bird Walk \\
+        
+    \end{tabular}
+    \end{position}
+    
+    \begin{position}{Soccer Without Borders}{Fall 2022 -- Present}{Volunteer}{}{}
+    \item Help set up and run soccer tournaments for refugee youth. 
+    \item Work as event photographer. My photos of events help get funding for these events.  
+    \end{position}
+
+\sectionlineskip    
+\end{content}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AWARDS
+\section{Awards} 
+\begin{content}
+
+    \begin{position}{1st Place, Grad Slam}{2024}{}{}{}
+        \item Won first place in this research competition with my three minute presentation of my Master's thesis on avian genomics.
+    \end{position}
+
+    \begin{position}{Metzger-Geiger Award}{2023}{}{}{}
+        \item I earned the highest GPA in my graduating class.
+    \end{position}
+
+      \begin{position}{Biological Sciences Outstanding Achievement Award}{2023}{}{}{}
+        \item My biology professors nominated me for this award based on my achievements as a biology student.
+    \end{position}
+
+     
+\sectionlineskip
+\end{content}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Funding 
+\section{Funding} 
+\begin{content}
+     
+     \begin{position}{Labroots Travel Grant}{1000 USD}{}{}{}
+        \item I won a travel grant for my proposal to attend the 2024 American Ornithological Society Conference.
+    \end{position}
+    
+    
+    \vspace{-.5\baselineskip}
+
+\sectionlineskip
+\end{content}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Media About Me 
+\section{Media} 
+\begin{content}
+    \begin{position}{Labroots Blog}{April 2024}{}{}{}
+        \item Title: \href{https://www.labroots.com/blog/celebrating-labroots-2024-travel-scholarship-winner-jair-torres}{Celebrating the Labroots 2024 Travel Scholarship Winner}
+    \end{position}
+
+    \begin{position}{CSU Stanislaus University News}{May 2023}{}{}{}
+        \item Title: \href{https://www.csustan.edu/news/eight-stan-state-warriors-honored-metzger-geiger-award-recipients}{Eight Stan State Warriors Honored as Metzger-Geiger Award Recipients}
+    \end{position}
+
+    \vspace{-.5\baselineskip}
+\sectionlineskip
+\end{content}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COURSE WORK
+\section{Selected Course Work}
+\vspace{-5mm} % Adjust this value to reduce space above the table
+     \begin{tabular}{l l l l l}
+        \qquad {\bf } & \qquad {\bf } & \qquad {\bf  } \\[.5\smallskipamount]
+        Bioinformatics & Genetic Biotechnology & Immunology & Medical Microbiology & Research and Tech. Writing (TA)\\ 
+        Biostatistics & Forensic DNA & Population Genetics & Parasitology & Scientific Writing and Comm.\\
+    \end{tabular}
+
+\end{document}
