@@ -1,0 +1,4 @@
+This repository contains R code that I used for microbiome analyses of several bird species. The data came from my professor, Dr. Tricia Van Laar, and her research
+on avian microbiomes. 
+
+The code here cleans 16S RNA reads and assigns taxonomies. The code also performs analyses that compare the diversity of the microbiome between bird populations.
