@@ -1,0 +1,5 @@
+This repository contains the code I used to make a gene model visualizer in Python. I also included a sample output that I used for poster presentations
+and lightning talks. 
+
+The code can visualize up to four genes that are found sequentially on a chromosome. Its main use is to visualize genomic neighborhoods, which is 
+important for genome annotation as genes tend to have similar neighborhoods across closely related species.
